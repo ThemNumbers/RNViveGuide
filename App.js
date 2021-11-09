@@ -7,6 +7,7 @@ export default class App extends React.Component {
   render() {
     return (
       <ViroARSceneNavigator
+        autofocus={true}
         initialScene={{scene: ARScene}} 
       />
     )
