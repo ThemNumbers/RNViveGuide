@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet} from 'react-native';
+import React from "react";
+import { StyleSheet } from "react-native";
 
 import {
   ViroARScene,
@@ -19,32 +19,34 @@ import {
   ViroAnimations,
   ViroNode,
   Viro3DObject,
-  ViroQuad
-} from 'react-viro';
+  ViroQuad,
+} from "react-viro";
 
 export class ViveCard extends React.Component {
   state = {
     runAnimation: false,
     step: 0,
-  }
+  };
 
   renderHeadViveScene = () => (
-    <ViroARImageMarker target={"headVive"}
+    <ViroARImageMarker
+      target={"headVive"}
       onAnchorFound={() => {
-        console.warn('object found')
-        this.setState({runAnimation: true})
+        console.warn("object found");
+        this.setState({ runAnimation: true });
       }}
       onAnchorRemoved={() => {
-        console.warn('object lose')
-        this.setState({runAnimation: false})
+        console.warn("object lose");
+        this.setState({ runAnimation: false });
       }}
     >
       <ViroNode
-        opacity={0} position={[0, -0.02, 0]}
+        opacity={0}
+        position={[0, -0.02, 0]}
         animation={{
-          name:'animateView',
+          name: "animateView",
           run: this.state.runAnimation,
-          onClick: () => this.setState({step: 1})
+          onClick: () => this.setState({ step: 1 }),
         }}
       >
         <ViroFlexView
@@ -52,37 +54,28 @@ export class ViveCard extends React.Component {
           height={0.05}
           width={0.05}
           style={{
-            flexDirection: 'column',
-            backgroundColor: this.state.step === 0 ? 'white' : 'green'
+            flexDirection: "column",
+            backgroundColor: this.state.step === 0 ? "white" : "green",
           }}
         >
-          <ViroText
-            textClipMode="None"
-            text="Vive Head"
-            scale={[.015, .015, .015]}
-            style={styles.titleTextStyle}
-          />
-          <ViroText
-            textClipMode="None"
-            text="1. Instalation guide"
-            scale={[.015, .015, .015]}
-            style={styles.textStyle}
-          />
+          <ViroImage height={0.07} width={0.05}   source={require("./res/head1.jpg")} />
         </ViroFlexView>
       </ViroNode>
     </ViroARImageMarker>
-  )
+  );
 
   renderBaseStationScene = () => (
-    <ViroARImageMarker target={"baseStation"}
-      onAnchorFound={() => this.setState({runAnimation: true})}
-      onAnchorRemoved={() => this.setState({runAnimation: false})}
+    <ViroARImageMarker
+      target={"baseStation"}
+      onAnchorFound={() => this.setState({ runAnimation: true })}
+      onAnchorRemoved={() => this.setState({ runAnimation: false })}
     >
       <ViroNode
-        opacity={0} position={[0, -0.02, 0]}
+        opacity={0}
+        position={[0, -0.02, 0]}
         animation={{
-          name:'animateView',
-          run: this.state.runAnimation
+          name: "animateView",
+          run: this.state.runAnimation,
         }}
       >
         <ViroFlexView
@@ -91,33 +84,24 @@ export class ViveCard extends React.Component {
           width={0.05}
           style={styles.card}
         >
-          <ViroText
-            textClipMode="None"
-            text="Vive Base Station"
-            scale={[.015, .015, .015]}
-            style={styles.textStyle}
-          />
-          <ViroText
-            textClipMode="None"
-            text="1. Instalation guide"
-            scale={[.015, .015, .015]}
-            style={styles.textStyle}
-          />
+          <ViroImage source={require("./res/base-station-text.jpg")} />
         </ViroFlexView>
       </ViroNode>
     </ViroARImageMarker>
-  )
+  );
 
   renderControllerScene = () => (
-    <ViroARImageMarker target={"controller"}
-      onAnchorFound={() => this.setState({runAnimation: true})}
-      onAnchorRemoved={() => this.setState({runAnimation: false})}
+    <ViroARImageMarker
+      target={"controller"}
+      onAnchorFound={() => this.setState({ runAnimation: true })}
+      onAnchorRemoved={() => this.setState({ runAnimation: false })}
     >
       <ViroNode
-        opacity={0} position={[0, -0.02, 0]}
+        opacity={0}
+        position={[0, -0.02, 0]}
         animation={{
-          name:'animateView',
-          run: this.state.runAnimation
+          name: "animateView",
+          run: this.state.runAnimation,
         }}
       >
         <ViroFlexView
@@ -126,22 +110,11 @@ export class ViveCard extends React.Component {
           width={0.05}
           style={styles.card}
         >
-          <ViroText
-            textClipMode="None"
-            text="Vive Controller"
-            scale={[.015, .015, .015]}
-            style={styles.textStyle}
-          />
-          <ViroText
-            textClipMode="None"
-            text="1. Instalation guide"
-            scale={[.015, .015, .015]}
-            style={styles.textStyle}
-          />
+          <ViroImage source={require("./res/controller-text.jpg")} />
         </ViroFlexView>
       </ViroNode>
     </ViroARImageMarker>
-  )
+  );
 
   render() {
     return (
@@ -158,66 +131,66 @@ export class ViveCard extends React.Component {
 
 var styles = StyleSheet.create({
   titleTextStyle: {
-    flex: .5,
-    fontFamily: 'Roboto',
+    flex: 0.5,
+    fontFamily: "Roboto",
     fontSize: 30,
-    color: '#000000',
-    textAlignVertical: 'top',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: "#000000",
+    textAlignVertical: "top",
+    textAlign: "center",
+    fontWeight: "bold",
   },
   textStyle: {
-    flex: .5,
-    fontFamily: 'Roboto',
+    flex: 0.5,
+    fontFamily: "Roboto",
     fontSize: 20,
-    color: 'red',
-    textAlignVertical: 'top',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: "red",
+    textAlignVertical: "top",
+    textAlign: "center",
+    fontWeight: "bold",
   },
   card: {
-    flexDirection: 'column',
-    backgroundColor: 'white'
+    flexDirection: "column",
+    backgroundColor: "white",
   },
   cardWrapper: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
     padding: 0.001,
-    flex: .5
+    flex: 0.5,
   },
   subText: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    flex: .5
-  }
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    flex: 0.5,
+  },
 });
 
 ViroARTrackingTargets.createTargets({
-  "baseStation" : {
-    source : require('./res/base-station.png'),
-    orientation : "Up",
-    physicalWidth : 0.05 // real world width in meters
+  baseStation: {
+    source: require("./res/base-station.png"),
+    orientation: "Up",
+    physicalWidth: 0.05, // real world width in meters
   },
-  "controller" : {
-    source : require('./res/controller.png'),
-    orientation : "Up",
-    physicalWidth : 0.05 // real world width in meters
+  controller: {
+    source: require("./res/controller.jpg"),
+    orientation: "Up",
+    physicalWidth: 0.05, // real world width in meters
   },
-  "headVive" : {
-    source : require('./res/head-vive.png'),
-    orientation : "Up",
-    physicalWidth : 0.05 // real world width in meters
-  }
+  headVive: {
+    source: require("./res/head-vive.png"),
+    orientation: "Up",
+    physicalWidth: 0.05, // real world width in meters
+  },
 });
 
 ViroAnimations.registerAnimations({
-  animateView:{
-    properties:{
-      opacity: 1.0
+  animateView: {
+    properties: {
+      opacity: 1.0,
     },
-      easing:"Bounce",
-      duration: 500
+    easing: "Bounce",
+    duration: 500,
   },
 });
 
