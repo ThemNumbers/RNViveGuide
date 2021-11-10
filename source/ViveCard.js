@@ -90,7 +90,11 @@ export class ViveCard extends React.Component {
           width={0.05}
           style={styles.card}
         >
-          <ViroImage source={require("./res/base-station-text.jpg")} />
+          <ViroImage
+            height={0.07}
+            width={0.05}
+            source={require("./res/base-station-text.jpg")}
+          />
         </ViroFlexView>
       </ViroNode>
     </ViroARImageMarker>
@@ -117,7 +121,11 @@ export class ViveCard extends React.Component {
           width={0.05}
           style={styles.card}
         >
-          <ViroImage source={require("./res/controller-text.jpg")} />
+          <ViroImage
+            height={0.07}
+            width={0.05}
+            source={require("./res/controller-text.jpg")}
+          />
         </ViroFlexView>
       </ViroNode>
     </ViroARImageMarker>
@@ -180,7 +188,7 @@ ViroARTrackingTargets.createTargets({
   controller: {
     source: require("./res/controller.png"),
     orientation: "Up",
-    physicalWidth: 0.05, // real world width in meters 
+    physicalWidth: 0.05, // real world width in meters
   },
   headVive: {
     source: require("./res/head-vive.png"),
