@@ -26,20 +26,23 @@ import {
 export class ViveCard extends React.Component {
   state = {
     runAnimation: false,
-    step: 0,
+    showHeadImage: false,
+    showControllerImage: false,
+    showStationImage: false
   };
 
   renderHeadViveScene = () => (
     <ViroARImageMarker
       target={"headVive"}
-      onAnchorFound={() => {
-        console.warn("object found");
-        this.setState({ runAnimation: true });
+      onAnchorUpdated={(anchor) => {
+        if (anchor.trackingMethod == "lastKnownPose") {
+          this.setState({ runAnimation: false, showHeadImage: false });
+        }
+        if (anchor.trackingMethod == "tracking") {
+          this.setState({ runAnimation: true, showHeadImage: true });
+        }
       }}
-      onAnchorRemoved={() => {
-        console.warn("object lose");
-        this.setState({ runAnimation: false });
-      }}
+      visible={this.state.showHeadImage}
     >
       <ViroNode
         opacity={0}
@@ -47,17 +50,13 @@ export class ViveCard extends React.Component {
         animation={{
           name: "animateView",
           run: this.state.runAnimation,
-          onClick: () => this.setState({ step: 1 }),
         }}
       >
         <ViroFlexView
           rotation={[-90, 0, 0]}
           height={0.05}
           width={0.05}
-          style={{
-            flexDirection: "column",
-            backgroundColor: this.state.step === 0 ? "white" : "green",
-          }}
+          style={styles.card}
         >
           <ViroImage
             height={0.07}
@@ -72,8 +71,15 @@ export class ViveCard extends React.Component {
   renderBaseStationScene = () => (
     <ViroARImageMarker
       target={"baseStation"}
-      onAnchorFound={() => this.setState({ runAnimation: true })}
-      onAnchorRemoved={() => this.setState({ runAnimation: false })}
+      onAnchorUpdated={(anchor) => {
+        if (anchor.trackingMethod == "lastKnownPose") {
+          this.setState({ runAnimation: false, showStationImage: false });
+        }
+        if (anchor.trackingMethod == "tracking") {
+          this.setState({ runAnimation: true, showStationImage: true });
+        }
+      }}
+      visible={this.state.showStationImage}
     >
       <ViroNode
         opacity={0}
@@ -103,8 +109,15 @@ export class ViveCard extends React.Component {
   renderControllerScene = () => (
     <ViroARImageMarker
       target={"controller"}
-      onAnchorFound={() => this.setState({ runAnimation: true })}
-      onAnchorRemoved={() => this.setState({ runAnimation: false })}
+      onAnchorUpdated={(anchor) => {
+        if (anchor.trackingMethod == "lastKnownPose") {
+          this.setState({ runAnimation: false, showControllerImage: false });
+        }
+        if (anchor.trackingMethod == "tracking") {
+          this.setState({ runAnimation: true, showControllerImage: true });
+        }
+      }}
+      visible={this.state.showControllerImage}
     >
       <ViroNode
         opacity={0}
@@ -143,39 +156,9 @@ export class ViveCard extends React.Component {
 }
 
 var styles = StyleSheet.create({
-  titleTextStyle: {
-    flex: 0.5,
-    fontFamily: "Roboto",
-    fontSize: 30,
-    color: "#000000",
-    textAlignVertical: "top",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  textStyle: {
-    flex: 0.5,
-    fontFamily: "Roboto",
-    fontSize: 20,
-    color: "red",
-    textAlignVertical: "top",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
   card: {
     flexDirection: "column",
     backgroundColor: "white",
-  },
-  cardWrapper: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    padding: 0.001,
-    flex: 0.5,
-  },
-  subText: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    flex: 0.5,
   },
 });
 
