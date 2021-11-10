@@ -20,6 +20,7 @@ import {
   ViroNode,
   Viro3DObject,
   ViroQuad,
+  ViroScene,
 } from "react-viro";
 
 export class ViveCard extends React.Component {
@@ -58,7 +59,11 @@ export class ViveCard extends React.Component {
             backgroundColor: this.state.step === 0 ? "white" : "green",
           }}
         >
-          <ViroImage height={0.07} width={0.05}   source={require("./res/head1.jpg")} />
+          <ViroImage
+            height={0.07}
+            width={0.05}
+            source={require("./res/head1.jpg")}
+          />
         </ViroFlexView>
       </ViroNode>
     </ViroARImageMarker>
@@ -76,6 +81,7 @@ export class ViveCard extends React.Component {
         animation={{
           name: "animateView",
           run: this.state.runAnimation,
+          onClick: () => this.setState({ step: 1 }),
         }}
       >
         <ViroFlexView
@@ -102,6 +108,7 @@ export class ViveCard extends React.Component {
         animation={{
           name: "animateView",
           run: this.state.runAnimation,
+          onClick: () => this.setState({ step: 1 }),
         }}
       >
         <ViroFlexView
@@ -119,11 +126,9 @@ export class ViveCard extends React.Component {
   render() {
     return (
       <ViroARScene>
-        <ViroNode>
-          {this.renderBaseStationScene()}
-          {this.renderHeadViveScene()}
-          {this.renderControllerScene()}
-        </ViroNode>
+        {this.renderBaseStationScene()}
+        {this.renderHeadViveScene()}
+        {this.renderControllerScene()}
       </ViroARScene>
     );
   }
@@ -168,14 +173,14 @@ var styles = StyleSheet.create({
 
 ViroARTrackingTargets.createTargets({
   baseStation: {
-    source: require("./res/base-station.png"),
+    source: require("./res/base-station.jpg"),
     orientation: "Up",
     physicalWidth: 0.05, // real world width in meters
   },
   controller: {
-    source: require("./res/controller.jpg"),
+    source: require("./res/controller.png"),
     orientation: "Up",
-    physicalWidth: 0.05, // real world width in meters
+    physicalWidth: 0.05, // real world width in meters 
   },
   headVive: {
     source: require("./res/head-vive.png"),
